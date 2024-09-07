@@ -1,0 +1,89 @@
+<?php
+class Vehicle{
+    private $make;
+    private $model;
+    private $year;
+    
+    public function __construct($make, $model, $year){
+        $this->make = $make;
+        $this->model = $model;
+        $this->year = $year;
+    }
+    
+    final public function getDetails(){
+        return "Make: {$this->make}, Model: {$this->model}, Year: {$this->year}";
+    }
+    
+    public function describe(){
+        return "This is a vehicle.";
+    }
+}
+// Car
+class Car extends Vehicle{
+    private $ndoors;
+    
+    public function __construct($make, $model, $year, $ndoors){
+        $this->ndoors = $ndoors;
+        parent::__construct($make, $model, $year);
+    }
+    
+    public function describe(){
+        return "This is a car with {$this->ndoors} doors.";
+    }
+}
+
+//Electric Car
+interface ElectricVehicle{
+    public function chargeBattery();
+}
+
+class ElectricCar extends Car implements ElectricVehicle{
+    private $batteryVolume;
+    
+    public function __construct($make, $model, $year, $ndoors, $batteryVolume){
+        $this->batteryVolume = $batteryVolume;
+        parent::__construct($make, $model, $year, $ndoors);
+    }
+    
+    public function chargeBattery(){
+        $this->batteryVolume = 100;
+        return "Battery charged to 100%.";
+    }
+    
+    public function describe(){
+        return "This is an electric car with {$this->batteryVolume}% battery and {$this->ndoors} doors.";
+    }
+}
+
+//Motorcycle
+final class Motorcycle extends Vehicle{
+    private $variety;
+    
+    public function __construct($make, $model, $year, $variety){
+        $this->variety = $variety;
+        parent::__construct($make, $model, $year);
+    }
+    
+    public function describe(){
+        return "This is a {$this->variety} motorcycle.";
+    }
+}
+
+//Car
+$car = new Car("Pourche", "911 Turbo S Cabriolet", 2024, 2);
+echo $car->getDetails() . "\n";
+echo $car->describe() . "\n";
+
+//Electric Car
+$electricCar = new ElectricCar("Audi", "PB18 e-tron", 2018, 2, 70);
+echo $electricCar->getDetails(). "\n";
+echo $electricCar->describe(). "\n";
+echo $electricCar->chargeBattery(). "\n";
+echo $electricCar->describe(). "\n";
+
+//Motorcycle
+$motorcycle = new Motorcycle("Zontes", "S310", 2018, "naked bike");
+echo $motorcycle->getDetails() . "\n";
+echo $motorcycle->describe() . "\n";
+
+?>
